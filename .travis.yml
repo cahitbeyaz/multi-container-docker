@@ -11,11 +11,11 @@ script:
 
 after_success:
   - docker build -t cahitbeyaz/multi-client ./client
-  - docker build -t cahitbeyaz/multi-ngingx ./ngingx
+  - docker build -t cahitbeyaz/multi-nginx ./nginx
   - docker build -t cahitbeyaz/multi-server ./server
   - docker build -t cahitbeyaz/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push cahitbeyaz/multi-ngingx
+  - docker push cahitbeyaz/multi-nginx
   - docker push cahitbeyaz/multi-client
   - docker push cahitbeyaz/multi-server
   - docker push cahitbeyaz/multi-worker
