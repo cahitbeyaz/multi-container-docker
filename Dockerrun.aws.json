@@ -33,6 +33,16 @@
                     "hostPort": 80,
                     "containerPort": 80
                 }
+            ],
+            "dependsOn": [
+                {
+                    "containerName": "server",
+                    "condition": "START"
+                },
+                {
+                    "containerName": "client",
+                    "condition": "START"
+                }
             ]
         }
     ],
