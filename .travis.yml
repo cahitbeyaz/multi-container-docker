@@ -19,3 +19,17 @@ after_success:
   - docker push cahitbeyaz/multi-client
   - docker push cahitbeyaz/multi-server
   - docker push cahitbeyaz/multi-worker
+
+deploy:
+  provider: "elasticbeanstalk"
+  region: "eu-west-3"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-eu-west-3-406761548275"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: 
+    secure: $AWS_ID
+  secret_access_key:
+    secure: $AWS_PWD

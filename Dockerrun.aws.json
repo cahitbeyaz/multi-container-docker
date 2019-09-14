@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "cahitbeyaz/multi-client",
+            "hostname": "client",
+            "essantial": false
+        },
+        {
+            "name": "server",
+            "image": "cahitbeyaz/multi-server",
+            "hostname": "api",
+            "essantial": false
+        },
+        {
+            "name": "worker",
+            "image": "cahitbeyaz/multi-worker",
+            "hostname": "worker",
+            "essantial": false
+        },
+        {
+            "name": "nginx",
+            "image": "cahitbeyaz/multi-nginx",
+            "hostname": "client",
+            "essantial": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ]
+        }
+    ],
+    "links": [
+        "client",
+        "server"
+    ]
+}
