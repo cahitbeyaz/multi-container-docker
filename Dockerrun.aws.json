@@ -6,28 +6,28 @@
             "image": "cahitbeyaz/multi-client",
             "hostname": "client",
             "essantial": false,
-            "memory": 128
+            "memory": 256
         },
         {
             "name": "server",
             "image": "cahitbeyaz/multi-server",
             "hostname": "api",
             "essantial": false,
-            "memory": 128
+            "memory": 256
         },
         {
             "name": "worker",
             "image": "cahitbeyaz/multi-worker",
             "hostname": "worker",
             "essantial": false,
-            "memory": 128
+            "memory": 256
         },
         {
             "name": "nginx",
             "image": "cahitbeyaz/multi-nginx",
             "hostname": "client",
             "essantial": true,
-            "memory": 128,
+            "memory": 256,
             "portMappings": [
                 {
                     "hostPort": 80,
