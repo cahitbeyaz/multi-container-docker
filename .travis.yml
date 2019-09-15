@@ -1,4 +1,3 @@
-language: generic 
 sudo: required
 services:
   - docker
@@ -7,29 +6,30 @@ before_install:
   - docker build -t cahitbeyaz/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true cahitbeyaz/react-test npm test
+  - docker run cahitbeyaz/react-test npm test -- --coverage
 
 after_success:
   - docker build -t cahitbeyaz/multi-client ./client
   - docker build -t cahitbeyaz/multi-nginx ./nginx
   - docker build -t cahitbeyaz/multi-server ./server
   - docker build -t cahitbeyaz/multi-worker ./worker
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push cahitbeyaz/multi-nginx
+  # Take those images and push them to docker hub
   - docker push cahitbeyaz/multi-client
+  - docker push cahitbeyaz/multi-nginx
   - docker push cahitbeyaz/multi-server
   - docker push cahitbeyaz/multi-worker
 
 deploy:
-  provider: "elasticbeanstalk"
-  region: "eu-west-3"
-  app: "multi-docker"
-  env: "MultiDocker-env1"
-  bucket_name: "elasticbeanstalk-eu-west-3-406761548275"
-  bucket_path: "multi-docker"
+  provider: elasticbeanstalk
+  region: eu-west-3
+  app: multi-docker
+  env: MultiDocker-env-1
+  bucket_name: elasticbeanstalk-eu-west-3-406761548275
+  bucket_path: docker-multi
   on:
     branch: master
-  access_key_id: 
-    secure: $AWS_ID
+  access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
-    secure: $AWS_PWD
+    secure: $AWS_SECRET_KEY
